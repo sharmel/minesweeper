@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: minesweeper
+  datasource:
+    url: jdbc:postgresql://localhost:5432/minesweeper
+    username: minesweeper
+    password: minesweeper
+
+  jackson:
+    default-property-inclusion: non_null
+
+
+
+
