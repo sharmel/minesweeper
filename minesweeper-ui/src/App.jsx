@@ -1,87 +1,144 @@
-import { useEffect, useState } from "react";
-import { createGame, revealCell, toggleFlag } from "./api";
+import { useCallback, useEffect, useState } from "react";
+import {
+    createGame,
+    revealCell,
+    toggleFlag
+} from "./api";
+
 import GameBoard from "./components/GameBoard";
 import GameControls from "./components/GameControls";
 
-export default function App() {
-    const [game, setGame] = useState(null);
-    const [error, setError] = useState(null);
+const DEFAULT_GAME = {
+    rows: 9,
+    columns: 9,
+    mines: 10
+};
 
-    async function startGame() {
+export default function App() {
+
+    const [game, setGame] = useState(null);
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const startGame = useCallback(async () => {
+
+        setLoading(true);
+        setError("");
+
         try {
-            setError(null);
             const newGame = await createGame(
-                9,
-                9,
-                10
+                DEFAULT_GAME.rows,
+                DEFAULT_GAME.columns,
+                DEFAULT_GAME.mines
             );
+
             setGame(newGame);
+
         } catch (err) {
             setError(err.message);
+        } finally {
+            setLoading(false);
         }
-    }
+
+    }, []);
+
+    useEffect(() => {
+        startGame();
+    }, [startGame]);
 
     async function handleReveal(row, column) {
-        if (!game) {
+
+        if (!game || loading) {
             return;
         }
+
+        setLoading(true);
+        setError("");
+
         try {
-            const updatedGame = await revealCell(
-                game.id,
-                row,
-                column
-            );
+
+            const updatedGame =
+                await revealCell(
+                    game.id,
+                    row,
+                    column
+                );
+
             setGame(updatedGame);
+
         } catch (err) {
             setError(err.message);
+        } finally {
+            setLoading(false);
         }
     }
 
     async function handleFlag(row, column) {
-        if (!game) {
+
+        if (!game || loading) {
             return;
         }
+
+        setError("");
+
         try {
-            const updatedGame = await toggleFlag(
-                game.id,
-                row,
-                column
-            );
+
+            const updatedGame =
+                await toggleFlag(
+                    game.id,
+                    row,
+                    column
+                );
+
             setGame(updatedGame);
+
         } catch (err) {
             setError(err.message);
         }
     }
 
-    useEffect(() => {
-        startGame();
-    }, []);
     return (
         <main className="app">
 
             <header>
                 <h1>Minesweeper</h1>
-                <p>ReStart coding exercise</p>
+
+                <p>
+                    Minesweeper
+                    coding exercise
+                </p>
             </header>
+
             <GameControls
                 game={game}
                 onNewGame={startGame}
+                disabled={loading}
             />
+
             {error && (
                 <div
-                    role="alert"
                     className="error"
+                    role="alert"
                 >
                     {error}
                 </div>
             )}
+
+            {loading && (
+                <p aria-live="polite">
+                    Loading…
+                </p>
+            )}
+
             {game && (
                 <GameBoard
                     game={game}
                     onReveal={handleReveal}
                     onFlag={handleFlag}
+                    disabled={loading}
                 />
             )}
+
         </main>
     );
 }

@@ -49,3 +49,31 @@ You should explain your decisions as you work.
 
 ```bash
 docker compose up postgres
+
+
+
+### Future Architecture
+
+                 ┌─────────────────┐
+                 │ React Frontend  │
+                 └────────┬────────┘
+                          │
+                       REST API
+                          │
+                 ┌────────▼────────┐
+                 │ Game Controller │
+                 └────────┬────────┘
+                          │
+                 ┌────────▼────────┐
+                 │   Game Service  │
+                 └────────┬────────┘
+                          │
+               ┌──────────┴──────────┐
+               │                     │
+        ┌──────▼──────┐       ┌──────▼──────┐
+        │ Game Store  │       │ Game Events │
+        └──────┬──────┘       └─────────────┘
+               │
+        ┌──────▼──────┐
+        │ PostgreSQL  │
+        └─────────────┘
