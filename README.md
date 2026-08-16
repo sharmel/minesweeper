@@ -1,4 +1,4 @@
-# ReStart Minesweeper - Full Stack Coding Exercise
+# Minesweeper - Full Stack Coding Exercise
 
 ## Context
 
