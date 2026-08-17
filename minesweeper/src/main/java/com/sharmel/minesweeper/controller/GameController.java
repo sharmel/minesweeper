@@ -24,7 +24,6 @@ public class GameController {
     @PostMapping("games")
     @ResponseStatus(HttpStatus.CREATED)
     public GameResponse createGame(@Valid @RequestBody CreateGameRequest createGameRequest){
-
         return GameResponse.from(gameService.createGame(createGameRequest));
     }
 
@@ -38,7 +37,6 @@ public class GameController {
                                @Valid @RequestBody MoveRequest moveRequest){
 
         return GameResponse.from(gameService.reveal(id,moveRequest));
-
     }
 
     @PostMapping("games/{id}/flags")

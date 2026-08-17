@@ -15,25 +15,20 @@ const DEFAULT_GAME = {
 };
 
 export default function App() {
-
     const [game, setGame] = useState(null);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
     const startGame = useCallback(async () => {
-
         setLoading(true);
         setError("");
-
         try {
             const newGame = await createGame(
                 DEFAULT_GAME.rows,
                 DEFAULT_GAME.columns,
                 DEFAULT_GAME.mines
             );
-
             setGame(newGame);
-
         } catch (err) {
             setError(err.message);
         } finally {
@@ -47,23 +42,19 @@ export default function App() {
     }, [startGame]);
 
     async function handleReveal(row, column) {
-
         if (!game || loading) {
             return;
         }
-
         setLoading(true);
         setError("");
 
         try {
-
             const updatedGame =
                 await revealCell(
                     game.id,
                     row,
                     column
                 );
-
             setGame(updatedGame);
 
         } catch (err) {

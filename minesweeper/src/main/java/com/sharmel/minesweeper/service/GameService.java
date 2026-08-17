@@ -155,16 +155,12 @@ public class GameService {
 
         Cell cell = game.getBoard()[row][column];
         queue.add(cell);
-
         while (!queue.isEmpty()) {
             Cell current = (Cell) queue.poll();
-
             if (current.isReveal() || current.isMine() || current.isFlag()) {
                 continue;
             }
-
             current.setReveal(true);
-
             if (current.getAdjacentMines() > 0) {
                 continue;
             }
@@ -211,11 +207,9 @@ public class GameService {
         Game game = games.get(id);
         validateCordinate(game, moveRequest);
         Cell cell = getCell(game, moveRequest);
-
         if (!cell.isReveal()) {
             cell.setFlag(!cell.isFlag());
         }
-
         return game;
     }
 
@@ -238,7 +232,6 @@ public class GameService {
             for (int column = 0; column < game.getColumns(); column++) {
 
                 Cell cell = game.getBoard()[row][column];
-
                 if (cell.isMine()) {
                     continue;
                 }
@@ -263,19 +256,15 @@ public class GameService {
     }
 
     private void placeMines(Game game) {
-
         List<Cell> cells = new ArrayList<>();
-
         for (int row = 0; row < game.getRows(); row++) {
             for (int column = 0; column < game.getColumns(); column++) {
                 cells.add(game.getBoard()[row][column]);
             }
         }
         Collections.shuffle(cells);
-
         for (int i = 0; i < game.getMines(); i++) {
             cells.get(i).setMine(true);
-
         }
     }
 
