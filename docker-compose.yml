@@ -1,4 +1,3 @@
-
 services:
   postgres:
     image: postgres:16
@@ -8,10 +7,15 @@ services:
       POSTGRES_USER: minesweeper
       POSTGRES_PASSWORD: minesweeper
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [ CMD-SHELL, "pg_isready -U minesweeper -d minesweeper" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
 volumes:
   postgres_data:

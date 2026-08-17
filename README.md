@@ -46,6 +46,14 @@ You should explain your decisions as you work.
 - Docker / Docker Compose
 
 ### Start PostgreSQL
+# 1. Start PostgreSQL
+docker compose up -d
+
+# 2. Check PostgreSQL
+docker compose ps
+
+# 3. Start backend
+./mvnw spring-boot:run
 
 ```bash
 docker compose up postgres

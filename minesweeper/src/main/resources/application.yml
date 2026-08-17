@@ -5,9 +5,10 @@ spring:
   application:
     name: minesweeper
   datasource:
-    url: jdbc:postgresql://localhost:5432/minesweeper
+    url: jdbc:postgresql://localhost:5433/minesweeper
     username: minesweeper
     password: minesweeper
+    driver-class-name: org.postgresql.Driver
 
   jackson:
     default-property-inclusion: non_null

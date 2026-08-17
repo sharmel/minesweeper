@@ -3,10 +3,10 @@ import {
     createGame,
     revealCell,
     toggleFlag
-} from "./api";
+} from "../api.js";
 
-import GameBoard from "./components/GameBoard";
-import GameControls from "./components/GameControls";
+import GameBoard from "./GameBoard.jsx";
+import GameControls from "./GameControls";
 
 const DEFAULT_GAME = {
     rows: 9,

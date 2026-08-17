@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/api";
+const API_URL = "http://localhost:8080/v1/api";
 
 async function request(url, options = {}) {
     const response = await fetch(url, options);
@@ -7,7 +7,7 @@ async function request(url, options = {}) {
     try {
         body = await response.json();
     } catch {
-        // Empty response.
+        console.log(response);
     }
 
     if (!response.ok) {
