@@ -27,7 +27,7 @@ public class GameService {
         int boardSize = request.rows() * request.columns();
         if (request.mines() >= boardSize) {
             throw new IllegalArgumentException(
-                    "Number of lines must be less than board size"
+                    "Number of mines must be less than board size"
             );
         }
 
@@ -191,7 +191,7 @@ public class GameService {
         gameRepository.saveCompletedGame(game);
     }
 
-    private Cell getCell(Game game, MoveRequest moveRequest) {
+    private Cell  getCell(Game game, MoveRequest moveRequest) {
         return game.getBoard()[moveRequest.row()][moveRequest.column()];
     }
 
